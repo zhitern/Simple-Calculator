@@ -4,6 +4,7 @@
 <head>
     <title>Simple Calculator</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="calculator.js" defer></script>
 </head>
 
 <body>
@@ -13,38 +14,33 @@
             <td colspan="4" class="calcOutput">For Testing Purposes</td>
         </tr>
         <tr>
-            <td><Button class = "calcBtn">7</Button></td>
-            <td><Button class = "calcBtn">8</Button></td>
-            <td><Button class = "calcBtn">9</Button></td>
-            <td><Button class = "calcBtn">/</Button></td>
+            <td><Button class = "numBtn">7</Button></td>
+            <td><Button class = "numBtn">8</Button></td>
+            <td><Button class = "numBtn">9</Button></td>
+            <td><Button class = "opBtn">/</Button></td>
         </tr>
         <tr>
-            <td><Button class = "calcBtn">4</Button></td>
-            <td><Button class = "calcBtn">5</Button></td>
-            <td><Button class = "calcBtn">6</Button></td>
-            <td><Button class = "calcBtn">*</Button></td>
+            <td><Button class = "numBtn">4</Button></td>
+            <td><Button class = "numBtn">5</Button></td>
+            <td><Button class = "numBtn">6</Button></td>
+            <td><Button class = "opBtn">*</Button></td>
         </tr>
         <tr>
-            <td><Button class = "calcBtn">1</Button></td>
-            <td><Button class = "calcBtn">2</Button></td>
-            <td><Button class = "calcBtn">3</Button></td>
-            <td><Button class = "calcBtn">-</Button></td>
+            <td><Button class = "numBtn">1</Button></td>
+            <td><Button class = "numBtn">2</Button></td>
+            <td><Button class = "numBtn">3</Button></td>
+            <td><Button class = "opBtn">-</Button></td>
         </tr>
         <tr>
-            <td colspan="2"><Button class = "calcBtn">0</Button></td>
-            <td><Button class = "calcBtn">.</Button></td>
-            <td><Button class = "calcBtn">+</Button></td>
+            <td colspan="2"><Button class = "numBtn">0</Button></td>
+            <td><Button class = "opBtn">.</Button></td>
+            <td><Button class = "opBtn">+</Button></td>
         </tr>
         <tr>
-            <td colspan="4"><Button id='btn' class = "calcBtn equalBtn">=</Button></td>
-            <script>
-                const btn = document.getElementById('btn');
-                btn.onclick = function(){
-                  btn.style.color = "yellow";
-                }
-            </script>
+            <td colspan="4"><Button class = "opBtn equalBtn">=</Button></td>
         </tr>
     </table>
 
 </body>
+
 </html>
