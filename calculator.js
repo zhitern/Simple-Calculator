@@ -2,8 +2,8 @@ const numBtnList = document.querySelectorAll(".numBtn");
 const opBtnList = document.querySelectorAll(".opBtn");
 const output = document.querySelector(".calcOutput");
 output.innerHTML = '0';
-var prevValue = 0;
-var currentValue = 0;
+var prevValue = 0; //in calculation, this will be the lhs. the a of a + b
+var currentValue = 0; //in calculation, this will be the rhs. the b of a + b
 var currentOperator = '';
 
 var i;
@@ -11,7 +11,7 @@ for (i = 0; i < numBtnList.length; ++i)
 {
     numBtnList[i].addEventListener('click', numClicked);
 }
-for (i = 0; i < opBtnList.length; ++i) 
+for (i = 0; i < opBtnList.length; ++i)
 {
     opBtnList[i].addEventListener('click', opClicked);
 }
@@ -23,12 +23,13 @@ function numClicked() {
         currentValue *= 10;
         currentValue += number;
 
-        display()
+        updateDisplay()
     }
 }
 
 function opClicked() {
-    switch(this.innerHTML)
+    opr = this.innerHTML;
+    switch(opr)
     {
         case '+':
         case '-':
@@ -36,69 +37,60 @@ function opClicked() {
         case 'X':
         case '*':
         case '/':
-            prevValue = currentValue;
+            if (currentOperator != '' && currentValue != 0) //if a previous operation exists, e.g. 1+2+3+...
+            {
+                prevValue = calculate(prevValue, currentValue, currentOperator);
+            }
+            else if (currentValue != 0)
+            {
+                prevValue = currentValue;
+            }
             currentValue = 0;
-            currentOperator = this.innerHTML;
+            currentOperator = opr;
 
-            display()
+            updateDisplay()
             break;
 
         case '.':
         case '=':
+            if (currentOperator == '/' && currentValue == 0)
+            {
+                alert('Error, attempting to divide by zero. Please dont. please.')
+            }
+            else if (currentOperator != '')
+            {
+                currentValue = calculate(prevValue, currentValue, currentOperator);
+                prevValue = 0;
+                currentOperator = '';
+
+                updateDisplay();
+            }
             break;
 
         default: break;
     }
 }
 
-// function opClicked() {
-//     switch(operator)
-//     {
-//         case '+':
-//             currentValue = 0;
+function calculate(a, b, operator)
+{
+    switch (operator)
+    {
+        case '+': return a + b;
+        case '-': return a - b;
+        case '*': 
+        case 'x':
+        case 'X':
+            return a * b;
+        case '/': return a / b;
 
-//             display()
-//             break;
+        default: break;
+    }
+}
 
-//         case '-':
-//             currentValue = 0;
-
-//             display()
-//             break;
-
-//         case 'x':
-//         case 'X':
-//         case '*':
-//             currentValue = 0;
-
-//             display()
-//             break;
-//         case '/':
-//             currentValue = 0;
-
-//             display()
-//             break;
-        
-//         case '.':
-//             currentValue = 0;
-
-//             display()
-//             break;
-
-//         case '=':
-//             currentValue = 0;
-
-//             display()
-//             break;
-
-//         default: break;
-//     }
-// }
-
-function display()
+function updateDisplay()
 {
     var outputString = "";
-    if (prevValue != 0)
+    if (currentOperator != '')
     {
         outputString += prevValue.toString();
     }
