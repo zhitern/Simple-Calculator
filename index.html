@@ -1,33 +1,50 @@
 <!DOCTYPE html>
+<meta charset="UTF-8">
 <html>
 <head>
-<title>Simple Calculator</title>
+    <title>Simple Calculator</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-    <div class="output"></div>
-
-    <Button>7</Button>
-    <Button>8</Button>
-    <Button>9</Button>
-    <Button>/</Button>
-
-    <Button>4</Button>
-    <Button>5</Button>
-    <Button>6</Button>
-    <Button>*</Button>
-
-    <Button>1</Button>
-    <Button>2</Button>
-    <Button>3</Button>
-    <Button>-</Button>
-
-    <Button>0</Button>
-    <Button>.</Button>
-    <Button>+</Button>
-
-    <Button>=</Button>
+    <table class="calcBG">
+        <tr>
+            <td colspan="4" class="calcOutput">For Testing Purposes</td>
+        </tr>
+        <tr>
+            <td><Button class = "calcBtn">7</Button></td>
+            <td><Button class = "calcBtn">8</Button></td>
+            <td><Button class = "calcBtn">9</Button></td>
+            <td><Button class = "calcBtn">/</Button></td>
+        </tr>
+        <tr>
+            <td><Button class = "calcBtn">4</Button></td>
+            <td><Button class = "calcBtn">5</Button></td>
+            <td><Button class = "calcBtn">6</Button></td>
+            <td><Button class = "calcBtn">*</Button></td>
+        </tr>
+        <tr>
+            <td><Button class = "calcBtn">1</Button></td>
+            <td><Button class = "calcBtn">2</Button></td>
+            <td><Button class = "calcBtn">3</Button></td>
+            <td><Button class = "calcBtn">-</Button></td>
+        </tr>
+        <tr>
+            <td colspan="2"><Button class = "calcBtn">0</Button></td>
+            <td><Button class = "calcBtn">.</Button></td>
+            <td><Button class = "calcBtn">+</Button></td>
+        </tr>
+        <tr>
+            <td colspan="4"><Button id='btn' class = "calcBtn equalBtn">=</Button></td>
+            <script>
+                const btn = document.getElementById('btn');
+                btn.onclick = function(){
+                  btn.style.color = "yellow";
+                }
+            </script>
+        </tr>
+    </table>
 
 </body>
 </html>
