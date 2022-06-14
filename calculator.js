@@ -6,7 +6,9 @@ let prevValue = 0.0; //in calculation, this will be the lhs. the a of a + b
 let currentValue = 0.0; //in calculation, this will be the rhs. the b of a + b
 let currentOperator = '';
 let decimalIndicated = false;
+let decimalIndicatedFirstTime = false; //to work with display such that a point 0 '#.0' can be displayed after decimal is clicked
 let decimalPosition = 10;
+let decimalPrecision = 0;
 
 var i;
 for (i = 0; i < numBtnList.length; ++i) 
@@ -22,6 +24,7 @@ function numClicked() {
     number = parseInt(this.innerHTML);
     if (number != NaN)
     {
+        decimalIndicatedFirstTime = false;
         if (!decimalIndicated)
         {
             currentValue *= 10;
@@ -31,6 +34,7 @@ function numClicked() {
         {
             currentValue += number / decimalPosition;
             decimalPosition *= 10;
+            decimalPrecision += 1;
         }
 
         updateDisplay()
@@ -63,7 +67,13 @@ function opClicked() {
             break;
 
         case '.':
-            decimalIndicated = true;
+            if (!decimalIndicated)
+            {
+                decimalIndicated = true;
+                decimalIndicatedFirstTime = true;
+
+                updateDisplay();
+            }
             break;
         case '=':
             if (currentOperator == '/' && currentValue == 0)
@@ -109,7 +119,11 @@ function updateDisplay()
         outputString += prevValue.toString();
     }
     outputString += ' ' + currentOperator + ' ';
-    outputString += currentValue;
+    outputString += currentValue.toFixed(decimalPrecision);
+    if (decimalIndicatedFirstTime)
+    {
+        outputString += '.';
+    }
     output.innerHTML = outputString;
 }
 
@@ -117,5 +131,7 @@ function updateDisplay()
 function resetDecimal()
 {
     decimalIndicated = false;
+    decimalIndicatedFirstTime = false;
     decimalPosition = 10;
+    decimalPrecision = 0;
 }
