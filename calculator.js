@@ -2,9 +2,11 @@ const numBtnList = document.querySelectorAll(".numBtn");
 const opBtnList = document.querySelectorAll(".opBtn");
 const output = document.querySelector(".calcOutput");
 output.innerHTML = '0';
-var prevValue = 0; //in calculation, this will be the lhs. the a of a + b
-var currentValue = 0; //in calculation, this will be the rhs. the b of a + b
-var currentOperator = '';
+let prevValue = 0.0; //in calculation, this will be the lhs. the a of a + b
+let currentValue = 0.0; //in calculation, this will be the rhs. the b of a + b
+let currentOperator = '';
+let decimalIndicated = false;
+let decimalPosition = 10;
 
 var i;
 for (i = 0; i < numBtnList.length; ++i) 
@@ -20,8 +22,16 @@ function numClicked() {
     number = parseInt(this.innerHTML);
     if (number != NaN)
     {
-        currentValue *= 10;
-        currentValue += number;
+        if (!decimalIndicated)
+        {
+            currentValue *= 10;
+            currentValue += number;
+        }
+        else
+        {
+            currentValue += number / decimalPosition;
+            decimalPosition *= 10;
+        }
 
         updateDisplay()
     }
@@ -46,12 +56,15 @@ function opClicked() {
                 prevValue = currentValue;
             }
             currentValue = 0;
+            resetDecimal();
             currentOperator = opr;
 
             updateDisplay()
             break;
 
         case '.':
+            decimalIndicated = true;
+            break;
         case '=':
             if (currentOperator == '/' && currentValue == 0)
             {
@@ -60,6 +73,7 @@ function opClicked() {
             else if (currentOperator != '')
             {
                 currentValue = calculate(prevValue, currentValue, currentOperator);
+                resetDecimal();
                 prevValue = 0;
                 currentOperator = '';
 
@@ -97,4 +111,11 @@ function updateDisplay()
     outputString += ' ' + currentOperator + ' ';
     outputString += currentValue;
     output.innerHTML = outputString;
+}
+
+//Needs to be called whenever currentValue changes
+function resetDecimal()
+{
+    decimalIndicated = false;
+    decimalPosition = 10;
 }
